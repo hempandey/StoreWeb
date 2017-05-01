@@ -1,0 +1,119 @@
+﻿@model StoreWeb.ViewModel.ProductViewModel
+<h2>Product Detail</h2>
+
+
+<div class="form-horizontal">
+
+
+    
+
+    <div class="row">
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtProductName" class="col-sm-5 control-label">Product Name</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="txtProductName" value="@Model.Product.ProductName" placeholder="Product Name">
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtProductCode" class="col-sm-5 control-label">Product Code</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="txtProductCode" value="@Model.Product.ProductCode" placeholder="Code">
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtStandardCost" class="col-sm-5 control-label">Standard Cost</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" value="@Model.Product.StandardCost" id="txtStandardCost">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtProductCode" class="col-sm-5 control-label">Category</label>
+                <div class="col-sm-5">
+                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                    @*<input type="text" class="form-control" id="txtProductCode" placeholder="Code">*@
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtListPrice" class="col-sm-5 control-label">List Price</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" value="@Model.Product.ListPrice" id="txtListPrice">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtProductCode" class="col-sm-5 control-label">Supplier</label>
+                <div class="col-sm-5">
+                    @Html.DropDownList("SuppliedId", null, htmlAttributes: new { @class = "form-control" })
+                    @*<input type="text" class="form-control" id="txtProductCode" placeholder="Code">*@
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtQtyPerUnit" class="col-sm-5 control-label">Qty Per Unit</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" value="@Model.Product.QuantityPerUnit" id="txtQtyPerUnit">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+</div>

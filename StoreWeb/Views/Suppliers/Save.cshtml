@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Save</h2>
+
+<div class="form-horizontal">
+
+    <form id="frmSuppliers" autocomplete="off">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="txtacctNo" class="control-label col-md-2"> Account Number </label>
+            <div class="col-md-10">
+                <input type="text" data-required="true" class="form-control" id="txtacctNo" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-2"> Name </label>
+            <div class="col-md-10">
+                <input type="text" data-required="true" class="form-control" id="txtName" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="btnSave" class="control-label col-md-2">  </label>
+            <div class="col-md-10">
+                <input type="button" class="btn btn-primary" id="btnSave" value="Save" />
+
+            </div>
+        </div>
+   </form>
+    
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Save")
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $('#btnSave').click(function () {
+
+                                          
+            var data = { 'acctNo': $('#txtacctNo').val(), 'name': $('#txtName').val() };
+
+
+                $.ajax({
+                    type: 'post',
+                    dataType:'json',
+                    url: "@Url.Action("SaveData","Suppliers")",
+                    data:data,
+                    success: function (result) {
+                                           
+                            alert('Success');
+                        
+                    },
+                    error: function (error) {
+                        var err = error;
+                    }
+            });
+
+
+           
+
+        });
+
+    </script>
+
+
+    }

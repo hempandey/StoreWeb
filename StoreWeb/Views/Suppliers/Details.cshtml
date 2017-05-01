@@ -1,0 +1,190 @@
+﻿@model StoreWeb.Supplier
+
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+		<form>
+
+			<div id="divCompanyInfo" class="divSection">
+				<span><h3>Supplier Information</h3></span>
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtCompanyName">Company Name</label>
+							<input type="text" value="@Model.Company"   disabled class="form-control" id="txtCompanyName">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtEmail">Email address</label>
+							<input type="email" value="@Model.Email" disabled class="form-control" id="txtEmail">
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtFirstName">First Name</label>
+							<input type="text" value="@Model.FirstName" disabled class="form-control" id="txtFirstName">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtLastName">Last address</label>
+							<input type="text" value="@Model.LastName"disabled class="form-control" id="txtLastName">
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div id="divContactInfo" class="divSection">
+				<span><h3>Contact Information</h3></span>
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtBusinessPhone">Business Phone</label>
+							<input type="text" value="@Model.BusinessPhone" disabled class="form-control" id="txtBusinessPhone">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtFax">Fax</label>
+							<input type="text" value="@Model.FaxNumber" disabled class="form-control" id="txtFax">
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtHomePhone">Home Phone</label>
+							<input type="text" value="@Model.HomePhone" disabled class="form-control" id="txtHomePhone">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtMobilePhone">Mobile Phone</label>
+							<input type="text" value="@Model.MobilePhone" disabled class="form-control" id="txtMobilePhone">
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div id="divAddressInfo" class="divSection">
+				<span><h3>Address</h3></span>
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtStreetAddress">Address 1</label>
+							<input type="text" value="@Model.Address" disabled class="form-control" id="txtAddress1">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtAddress2">Address 2</label>
+							<input type="text" value="@Model.Address" disabled class="form-control" placeholder="Appartment, Suite, Unit, Floor (Optional)" id="txtAddress2">
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtCity">City</label>
+							<input type="text" value="@Model.City" disabled class="form-control" id="txtCity">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtState">State</label>
+							<input type="text" value="@Model.State" disabled class="form-control" id="txtState">
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-6">
+
+						<div class="form-group">
+							<label for="txtZip">Zip</label>
+							<input type="text" value="@Model.ZipCode" disabled class="form-control" id="txtZip">
+						</div>
+
+					</div>
+					<div class="col-xs-6">
+
+						<div class="form-group">
+
+
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+			<div id="divNoteInfo" class="divSection">
+				<span><h3></h3></span>
+				<div class="row">
+
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label for="txtStreetAddress">Note</label>
+							<textarea class="form-control" value="@Model.Note" disabled id="txtNote"></textarea>
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+		</form>
+
+
+
+
+
+
+	
+
+<p>
+	<div>
+
+		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+		@Html.ActionLink("Back to List", "Index")
+
+	</div>
+</p>

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<StoreWeb.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover">
+    <tr>
+        <th>
+            Supplier Name
+        </th>
+       
+        <th>
+            Email
+        </th>
+        <th>
+            Phone
+        </th>
+       
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company)
+        </td>
+        
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.BusinessPhone))
+            {
+               <span>W:</span> @Html.DisplayFor(modelItem => item.BusinessPhone)<br />
+            }
+
+            @if (!string.IsNullOrEmpty(item.HomePhone))
+            {
+                <span>H:</span> @Html.DisplayFor(modelItem => item.HomePhone)<br />}
+
+
+            @if (!string.IsNullOrEmpty(item.MobilePhone))
+            {
+                <span>M:</span> @Html.DisplayFor(modelItem => item.MobilePhone)<br />
+            }
+
+            @if (!string.IsNullOrEmpty(item.FaxNumber))
+            {
+                <span>F:</span> @Html.DisplayFor(modelItem => item.FaxNumber)
+            }
+
+
+        </td>
+
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+        </td>
+    </tr>
+}
+
+</table>

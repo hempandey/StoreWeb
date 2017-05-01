@@ -1,0 +1,132 @@
+﻿@model StoreWeb.Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+<form autocomplete="off">
+    
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtCategoryName">Category Name</label>
+                    <input type="text" class="form-control" id="txtCategoryName">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtEmail"></label>
+                    
+                </div>
+
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-xs-6">
+
+            <div class="form-group">
+              
+                <input type="button" value="Save Category" class="btn btn-primary"  id="btnSaveCategory">
+            </div>
+
+        </div>
+        <div class="col-xs-6">
+
+            <div class="form-group">
+                <label for="txtEmail"></label>
+               
+            </div>
+
+        </div>
+    </div>
+</form>
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+
+@section Scripts {
+
+        <script type="text/javascript">
+
+            function validateForm() {
+
+                if ($('#txtCategoryName').val() === "") {
+                    toastr.error('Category name is required.', 'Validation Error')
+                    return false;
+                }
+                return true;
+            }
+
+            $(function () {
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                $("input[data-required]").blur(function () {
+                    var v = $(this).val();
+                    if (v === "") {
+                        $(this).addClass('invalid');
+                    } else {
+                        $(this).removeClass('invalid');
+                    }
+                });
+            });
+
+                $('#btnSaveCategory').click(function () {
+
+                    if (validateForm()) {
+                        var CategoryObj = { CategoryName: $('#txtCategoryName').val() }
+                        //var data = { 'CategoryName': $('#txtCategoryName').val() };
+                        var data = { 'category': CategoryObj };
+                        $.ajax({
+                            type: 'post',
+                            dataType: 'json',
+                            url: "@Url.Action("SaveCategoryData", "Categories")",
+                            data: data,
+                            success: function (result) {
+
+                                if (result.Success) {
+                                    toastr.success(result.Message, 'Success')
+                                } else {
+                                    toastr.error(result.Message, 'Validation Error')
+                                    return false;
+                                }
+
+                            },
+                            error: function (error) {
+                                toastr.error(error.statusText, 'Error')
+                                return false;
+                            }
+                        });
+
+
+
+                    }
+
+
+                });
+
+           </script>
+    }

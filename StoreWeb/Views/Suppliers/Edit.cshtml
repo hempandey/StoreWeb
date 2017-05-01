@@ -1,0 +1,400 @@
+﻿@model StoreWeb.Supplier
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+        <h2>Edit</h2>
+        @*@@using (Html.BeginForm()) *@
+
+
+
+
+<form autocomplete="off">
+    @Html.HiddenFor(model => model.Id)
+    <div id="divCompanyInfo" class="divSection">
+        <span><h3>Supplier Information</h3></span>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtCompanyName">Company Name</label>
+                    <input type="text" value="@Model.Company"  class="form-control" id="txtCompanyName">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtEmail">Email address</label>
+                    <input type="email" value="@Model.Email"  class="form-control" id="txtEmail">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtFirstName">First Name</label>
+                    <input type="text" value="@Model.FirstName"  class="form-control" id="txtFirstName">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtLastName">Last address</label>
+                    <input type="text" value="@Model.LastName"class="form-control" id="txtLastName">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="divContactInfo" class="divSection">
+        <span><h3>Contact Information</h3></span>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtBusinessPhone">Business Phone</label>
+                    <input type="text" value="@Model.BusinessPhone" class="form-control" id="txtBusinessPhone">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtFax">Fax</label>
+                    <input type="text" value="@Model.FaxNumber" class="form-control" id="txtFax">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtHomePhone">Home Phone</label>
+                    <input type="text" value="@Model.HomePhone" class="form-control" id="txtHomePhone">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtMobilePhone">Mobile Phone</label>
+                    <input type="text" value="@Model.MobilePhone" class="form-control" id="txtMobilePhone">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="divAddressInfo" class="divSection">
+        <span><h3>Address</h3></span>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtStreetAddress">Address 1</label>
+                    <input type="text" value="@Model.Address" class="form-control" id="txtAddress1">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtAddress2">Address 2</label>
+                    <input type="text" value="@Model.Address" class="form-control" placeholder="Appartment, Suite, Unit, Floor (Optional)" id="txtAddress2">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtCity">City</label>
+                    <input type="text" value="@Model.City" class="form-control" id="txtCity">
+                </div>
+
+            </div>
+
+          
+
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="ddlState">State</label>
+                    <input type="text" value="@Model.State" class="form-control" id="txtState">
+
+                 
+                </div>
+            </div>
+        </div>
+
+
+            <div class="row">
+                <div class="col-xs-6">
+
+                    <div class="form-group">
+                        <label for="txtZip">Zip</label>
+                        <input type="text" value="@Model.ZipCode" class="form-control" id="txtZip">
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+
+                    <div class="form-group">
+                        <label for="txtWebsite">Web</label>
+                        <input type="text" class="form-control" id="txtWebsite">
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="divNoteInfo" class="divSection">
+            <span><h3></h3></span>
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="txtStreetAddress">Note</label>
+                        <textarea class="form-control" value="@Model.Note" id="txtNote"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="txtNote" class="control-label col-md-2">  </label>
+                <div class="col-md-10">
+                    <input type="button" class="btn btn-primary" id="btnCreateSupplier" value="Create" />
+
+                </div>
+            </div>
+
+
+        </div>
+</form>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+
+
+        @section Scripts {
+
+            <script type="text/javascript">
+
+            $(function () {
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                $("input[data-required]").blur(function () {
+                    var v = $(this).val();
+                    if (v === "") {
+                        $(this).addClass('invalid');
+                    } else {
+                        $(this).removeClass('invalid');
+                    }
+                });
+            });
+
+            function ValidateEmail(email) {
+                // Validate email format
+                var expr = /^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+                return expr.test(email);
+            };
+
+            function ValidateUrl(url) {
+                var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@@:%_\+.~#?&//=]*)/g);
+                if (res == null)
+                    return false;
+                else
+                    return true;
+            }
+
+            function validateForm() {
+
+                if ($('#txtCompanyName').val() === "") {
+                    toastr.error('Company name is required.', 'Validation Error')
+                    return false;
+                }
+
+                if ($('#txtFirstName').val() === "") {
+                    toastr.error('First name is required.', 'Validation Error')
+                    return false;
+                }
+
+                if ($('#txtLastName').val() === "") {
+                    toastr.error('Last name is required.', 'Validation Error')
+                    return false;
+                }
+
+
+
+                if ($("#txtEmail").val() === "") {
+                    toastr.error(' Email Address is required!', 'Validation Error')
+                    return false;
+                }
+
+                if (!ValidateEmail($("#txtEmail").val())) {
+                    toastr.error(' Email address is not valid!', 'Validation Error')
+                    return false;
+
+                }
+
+
+
+                if ($('#txtAddress').val() === "") {
+                    toastr.error('Address is required.', 'Validation Error')
+                    return false;
+                }
+
+
+                if ($('#txtCity').val() === "") {
+                    toastr.error('City is required.', 'Validation Error')
+                    return false;
+                }
+
+
+                if ($('#ddlState').val() === "0") {
+                    toastr.error('State is required.', 'Validation Error')
+                    return false;
+                }
+
+
+
+                if ($('#txtZipCode').val() === "") {
+                    toastr.error('Zipcode is required.', 'Validation Error')
+                    return false;
+                }
+                if ($("#txtWebsite").val() != "") {
+                    if (!ValidateUrl($("#txtWebsite").val())) {
+                        toastr.error(' wesite url is not valid!', 'Validation Error')
+                        return false;
+                    }
+                }
+                return true;
+            };
+
+
+            $('#btnCreateSupplier').click(function () {
+
+                if (validateForm()) {
+                    ////STEP 2:  Created js Object to get suppplier form data using jQuery selectors
+                    var supplierObj = {
+                        Id: $('#Id').val(),
+                        Company: $('#txtCompanyName').val(),
+                        FirstName: $('#txtFirstName').val(),
+                        LastName: $('#txtLastName').val(),
+                        Email: $('#txtEmail').val(),
+                        BusinessPhone: $('#txtBusinessPhone').val(),
+                        HomePhone: $('#txtHomePhone').val(),
+                        MobilePhone: $('#txtMobilePhone').val(),
+                        FaxNumber: $('#txtFaxNumber').val(),
+                        Address: $('#txtAddress').val(),
+                        City: $('#txtCity').val(),
+                        State: $('#ddlState').val(),
+                        ZipCode: $('#txtZipCode').val(),
+                        Website: $('#txtWebsite').val(),
+                        Note: $('#txtNote').val(),
+                    };
+                    var data = { 'supplier': supplierObj };
+
+
+                    $.ajax({
+                        type: 'post',
+                        url: "@Url.Action("edit","Suppliers")",
+                        data: data,
+                        success: function (result) {
+                            if (result.Success) {
+                                var url = "/Suppliers/Index";
+                                window.location.href = url;
+                            }
+                        },
+                        error: function (error) {
+                            var err = error;
+                        }
+                    });
+                }
+            });
+
+                function ValidateEmail(email) {
+                    // Validate email format
+                    var expr = /^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+                    return expr.test(email);
+                };
+
+                function ValidateUrl(url) {
+                    var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@@:%_\+.~#?&//=]*)/g);
+                    if (res == null)
+                        return false;
+                    else
+                        return true;
+                }
+                //function validateLoginId(LoginId) {
+                //    return true;
+                //}
+                function validateForm() {
+
+                    if ($('#txtFirstName').val() === "") {
+                        toastr.error('First name is required.', 'Validation Error')
+                        return false;
+                    }
+
+                    if ($("#txtEmail").val() === "") {
+                        toastr.error(' Email Address is required!', 'Validation Error')
+                        return false;
+                    }
+
+                    if (!ValidateEmail($("#txtEmail").val())) {
+                        toastr.error(' Email address is not valid!', 'Validation Error')
+                        return false;
+
+                    }
+                    if (!ValidateLoginId($("#txtLogInId").val() == "")) {
+                        toastr.error(' Login Id is required!', 'Validation Error')
+                        return false;
+
+                    }
+                    return true;
+                };
+
+
+
+
+            </script>
+        }
+
+     
+

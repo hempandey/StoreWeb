@@ -1,0 +1,242 @@
+﻿ @*@model IEnumerable <StoreWeb.ViewData>*@
+@{
+    ViewBag.Title = "ViewData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contractor Info</h2>
+
+<div class="form-horizontal">
+    <form id="frmConstractor" autocomplete="off">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="txtName" class="control-label col-md-2"> Name </label>
+                <input type="text" class="form-control" autocomplete="off" id="txtName" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-8">
+                <label for="txtEmail" class="control-label col-md-2"> Email </label>               
+                    <input type="email" class="form-control" autocomplete="off" id="txtEmail" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-8">
+                    <label for="ddlStat">State</label>
+                    @Html.DropDownList("ddlStat", new SelectList(ViewBag.StateList, "Value", "Text"), new { @class = "form-control" })
+                </div>
+            </div>
+
+
+            <br />
+            <div class="checkbox">
+                <label>
+                    <label for="checkboxMarried" class="control-label col-md-2"></label>
+                    <input type="checkbox" id="checkboxMarried">Married
+                </label>
+            </div>
+            <label for="radioBtnGender" > Gender </label>
+            <label class="radio-inline" >
+                <input type="radio"  name="inlineRadioOptions" id="inlineRadioMale" value="M" > Male
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadioFemale" value="F"> Female
+            </label>
+           
+              
+                    <br />
+                    <div class="checkbox" for="txtcheckboxSkills">
+                        <label for="txtcheckboxSkills" class="control-label "> Programming Skills </label>
+                    </div>
+                    <div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="skillCheck" name="skills" id="checkboxHtml" value="Html;">
+                                Html
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                                
+                            <input type="checkbox" class="skillCheck" name="skills" id="checkboxCss" value="Css;">
+                            CSS
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="skillCheck" name="skills" id="checkboxSCSharp" value="C#;">
+                            C#
+                        </label>
+                    </div>
+
+                    <div class="checkbox" alianment="10%">
+                        <label>
+                            <input type="checkbox" class="skillCheck" name="skills" id="checkboxJS" value="Javascript;">
+                            JavaScript
+                        </label>
+                    </div>
+
+                    <br />
+                    <input type="button" class="btn btn-primary" id="btnSaveContractor" value="Save" />
+                    <button type="button" id="btnClearContractor" class="btn btn-primary">Clear</button>
+                    <br />
+
+    </form>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+
+    @section Scripts {
+         
+        <script type="text/javascript">
+            $(function () {
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                $("input[data-required]").blur(function () {
+                    var v = $(this).val();
+                    if (v === "") {
+                        $(this).addClass('invalid');
+                    } else {
+                        $(this).removeClass('invalid');
+                    }
+                });
+
+            });
+
+            function ValidateEmail(email) {
+                var expr = /^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+                return expr.test(email);
+            };
+
+            function validateForm() {
+
+                if ($('#txtFirstName').val() === "") {
+                    toastr.error('Company name is required.', 'Validation Error')
+                    return false;
+                }
+
+                if ($("#txtEmail").val() === "") {
+                    toastr.error(' Email Address is required!', 'Validation Error')
+                    return false;
+                }
+
+                if (!ValidateEmail($("#txtEmail").val())) {
+                    toastr.error(' Email address is not valid!', 'Validation Error')
+                    return false;
+
+                }
+
+                if ($('#ddlStat').val() === "0") {
+                    toastr.error('State is required.', 'Validation Error')
+                    return false;
+                }
+
+                if (!Radiobutton_ClientValidate()) {
+                    toastr.error('Please select gender.', 'Validation Error')
+                    return false;
+                }
+                return true;
+            }
+
+
+
+
+            function validatecheckbox(Married) {
+                if (
+                Married.checkboxMarried.checked == Married) {
+
+                    return Married;
+                } else {
+                    return UnMarried;
+                }
+            }
+
+            function GetSkills() {
+                var skills = '';
+                $('.skillCheck:checked').each(function () {
+
+                    var values = $(this).val();
+                    skills += values;
+                });
+
+                return skills;
+
+            }
+
+
+            function Radiobutton_ClientValidate() {
+                if ($('#inlineRadioMale:checked') || $('#inlineRadioFemale:checked')) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            $('#btnSaveContractor').click(function () {
+                //var married = (($('#checkboxMarried:checked')) ? true : false);
+                //var gender = (($('#inlineRadioMale:checked')) ? 'M' : 'F');
+                if (validateForm()) {
+
+                    var married = (($("#checkboxMarried").is(":checked")) ? true : false);
+                    var gender = (($("#inlineRadioMale").is(":checked")) ? 'M' : 'F');
+                    var contractorObj = {
+                        Name: $('#txtName').val(),
+                        Email: $('#txtEmail').val(),
+                        State: $('#ddlStat').val(),
+                        Married: married,
+                        Gender: gender,
+                        Skills: GetSkills()
+                    };
+                }
+                var data = { 'ShippingCompanies': contractorObj };
+
+                $.ajax({
+                    url: "@Url.Action("ViewData", "ShippingCompanies")",
+                    dataType: 'json',
+                    type: 'post',
+                    data: {'Contractor': contractorObj},
+                    success: function (data) {
+
+                        alert('Success');
+
+                    },
+                    error: function (error) {
+                        var err = error;
+                    }
+                });
+
+
+
+
+            });
+
+
+
+        </script>
+    }

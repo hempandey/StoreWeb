@@ -1,0 +1,156 @@
+﻿@model StoreWeb.Employee
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Employees</h2>
+<form autocomplete="off">
+    <div id="divCompanyInfo" class="divSection">
+        <div class="row">
+            <div class="col-xs-6">
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <label for="txtFirstName">First Name</label>
+                    <input type="text" class="form-control" data-required="true" value="@Model.FirstName" id="txtFirstName">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtLastName">Last Name</label>
+                    <input type="text" class="form-control" data-required="true" value="@Model.LastName" id="txtLastName">
+                </div>
+            </div>
+
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtEmail">Email</label>
+                    <input type="email" disabled class="form-control" data-required="true" value="@Model.Email" id="txtEmail">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtLogin">Login</label>
+                    <input type="email" disabled class="form-control" data-required="true" value="@Model.Login" id="txtLogin">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <input type="button" value="Save" class="btn btn-primary" id="btnSaveEmployees">
+                    </div>
+                </div>
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            $("input[data-required]").blur(function () {
+                var v = $(this).val();
+                if (v === "") {
+                    $(this).addClass('invalid');
+                } else {
+                    $(this).removeClass('invalid');
+                }
+            });
+        });
+
+
+        function ValidateEmail(email) {
+            // Validate email format
+            var expr = /^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+            return expr.test(email);
+        };
+
+        //function validateLoginId(LoginId) {
+        //    return true;
+        //}
+        function validateForm() {
+
+            if ($('#txtFirstName').val() === "") {
+                toastr.error('First name is required.', 'Validation Error')
+                return false;
+            }
+
+            //if ($("#txtEmail").val() === "") {
+            //    toastr.error(' Email Address is required!', 'Validation Error')
+            //    return false;
+            //}
+
+            //if (!ValidateEmail($("#txtEmail").val())) {
+            //    toastr.error(' Email address is not valid!', 'Validation Error')
+            //    return false;
+
+            //}
+            //if ($("#txtLogin").val() === "") {
+            //    toastr.error(' Login Id is required!', 'Validation Error')
+            //    return false;
+            //}
+            return true;
+        };
+
+        $('#btnSaveEmployees').click(function () {
+            if (validateForm()) {
+                ////STEP 2:  Created js Object to get suppplier form data using jQuery selectors
+                var EmployeeObj = {
+                    Id: $('#Id').val(),
+                    FirstName: $('#txtFirstName').val(),
+                    LastName: $('#txtLastName').val(),
+                    Email: $('#txtEmail').val(),
+                    Login: $('#txtLogin').val(),
+                };
+                var data = { 'employee': EmployeeObj };
+
+
+                 $.ajax({
+                    type: 'post',
+                    url: "@Url.Action("Edit", "Employees")",
+                    data: data,
+                    dataType: 'json',
+                    success: function (result) {
+                    if (result.Success) {
+                        var url = "/Employees/Index";
+                        window.location.href = url;
+                    } else {
+                        toastr.error(result.Message, 'Error')
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    toastr.error(error.statusText, 'Error')
+                    return false;
+                }
+                });
+
+            }
+        });
+</script>
+}

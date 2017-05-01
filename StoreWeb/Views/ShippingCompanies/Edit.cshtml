@@ -1,0 +1,295 @@
+﻿@model StoreWeb.ShippingCompany
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+<h4>Contect</h4>
+<form autocomplete="off">
+    <div id="divCompanyInfo" class="divSection">
+
+
+        @Html.HiddenFor(model => model.Id)
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtShippingCompany">Shipping Company</label>
+                    <input type="text" class="form-control" value="@Model.Company" id="txtShippingCompany">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtContectPerson">Contect Person</label>
+                    <input type="text" class="form-control" value="@Model.ContactPerson" id="txtContectPerson">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtEmail">Email</label>
+                    <input type="email" class="form-control" value="@Model.Email" id="txtEmail">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtBusinessPhone">Business Phone</label>
+                    <input type="text" class="form-control" value="@Model.BusinessPhone" id="txtBusinessPhone">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtFax">Fax</label>
+                    <input type="text" class="form-control" value="@Model.Fax" id="txtFax">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="divAddressInfo" class="divSection">
+        <span><h3>Address</h3></span>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtAddress">Address</label>
+                    <input type="text" class="form-control" value="@Model.Address" id="txtAddress">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtAddress2">Address2(Optional)</label>
+                    <input type="text" class="form-control" value="@Model.Address2" id="txtAddress2">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="txtCity">City</label>
+                    <input type="text" class="form-control" value="@Model.City" id="txtCity">
+                </div>
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="ddlState">State</label>
+                    
+                    @Html.DropDownList("State", null, htmlAttributes: new { @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtZip">ZipCode</label>
+                    <input type="text" class="form-control" value="@Model.ZipCode" id="txtZip">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtWebsite">Web</label>
+                    <input type="text" class="form-control" value="@Model.Web" id="txtWebsite">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="divNoteInfo" class="divSection">
+        <span><h3></h3></span>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="txtStreetAddress">Note</label>
+                    <textarea class="form-control" value="@Model.Note" id="txtNote"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            <label for="txtNote" class="control-label col-md-2">  </label>
+        </div>
+    </div>
+        <div class="form-group">
+            <div>
+                <div>
+                    <div class="col-md-12">
+                        <input type="button" class="btn btn-primary" id="btnUpdateShippingCompany" value="Update" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+ </form>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            $("input[data-required]").blur(function () {
+                var v = $(this).val();
+                if (v === "") {
+                    $(this).addClass('invalid');
+                } else {
+                    $(this).removeClass('invalid');
+                }
+            });
+
+        });
+
+        function ValidateEmail(email) {
+            // Validate email format
+            var expr = /^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+            return expr.test(email);
+        };
+
+        function ValidateUrl(url) {
+            var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@@:%_\+.~#?&//=]*)/g);
+            if (res == null)
+                return false;
+            else
+                return true;
+        }
+
+        function validateForm() {
+            if ($('#txtShippingCompany').val() === "") {
+                toastr.error('Shipping Company is required.', 'Validation Error')
+                return false;
+            }
+
+            if ($('#txtContectPerson').val() === "") {
+                toastr.error('Contect Person is required.', 'Validation Error')
+                return false;
+            }
+
+            if ($("#txtEmail").val() ==="") {
+                toastr.error('Email is required.', 'Validation Error')
+                return false;
+            }
+            if (!ValidateEmail($("#txtEmail").val())) {
+                toastr.error(' Email address is not valid!', 'Validation Error')
+                return false;
+            }
+            if ($('#txtBusinessPhone').val() === "") {
+                toastr.error('Business Phone is required', 'Validation Error')
+                return false;
+            }
+            if ($('#txtFax').val() === "") {
+                toastr.error('Fax Number is required', 'Validaiton Error')
+                return false;
+            }
+            if ($('#txtAddress').val() === "") {
+                toastr.error('Address is required.', 'Validation Error')
+                return false;
+            }
+            //if ($('#txtAddress2').val() === "") {
+            //    toastr.error('Address is required.', 'Validation Error')
+            //    return false;
+            //}
+
+            if ($('#txtCity').val() === "") {
+                toastr.error('City is required.', 'Validation Error')
+                return false;
+            }
+            if ($('#State').val() === "0") {
+                toastr.error('State is required.', 'Validation Error')
+                return false;
+            }
+
+
+            if ($('#txtZip').val() === "") {
+                toastr.error('Zipcode is required.', 'Validation Error')
+                return false;
+            }
+            if ($("#txtWebsite").val() != "") {
+                if (!ValidateUrl($("#txtWebsite").val())) {
+                    toastr.error(' Website url is not valid!', 'Validation Error')
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        $('#btnUpdateShippingCompany').click(function () {
+
+            if (validateForm()) {
+                ////STEP 2:  Created js Object to get ShippingCompany form data using jQuery selectors
+                var shippingCompanyObj = {
+                    Id: $('#Id').val(),
+                    Company: $('#txtShippingCompany').val(),
+                    ContactPerson: $('#txtContectPerson').val(),
+                    Email: $('#txtEmail').val(),
+                    BusinessPhone: $('#txtBusinessPhone').val(),
+
+                    Fax: $('#txtFax').val(),
+                    Address: $('#txtAddress').val(),
+                    Address2: $('#txtAddress2').val(),
+                    City: $('#txtCity').val(),
+                    State: $('#State').val(),
+                    ZipCode: $('#txtZip').val(),
+                    Web: $('#txtWebsite').val(),
+                    Note: $('#txtNote').val(),
+                };
+                var data = { 'shippingCompany': shippingCompanyObj };
+
+
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: "@Url.Action("Edit", "ShippingCompanies")",
+                    data: data,
+                    success: function (result) {
+                        if (!result.Success) {
+                            toastr.error(result.Message, 'Validation Error')
+                            return false;
+
+                        } else {
+                            var url = "/ShippingCompanies/Index";
+                            window.location.href = url;
+                        }
+                    },
+                    error: function (error) {
+
+                        toastr.error(result.Message, 'Validation Error')
+                        return false;
+                    }
+                });
+
+            }
+
+
+        }
+   )
+    </script>
+}

@@ -1,0 +1,484 @@
+﻿@model StoreWeb.Supplier
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Supplier</h2>
+<form autocomplete="off">
+    <div id="divCompanyInfo" class="divSection">
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtCompanyName">Company Name</label>
+                    <input type="text" class="form-control" id="txtCompanyName">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtEmail">Email address</label>
+                    <input type="email" class="form-control" id="txtEmail">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtFirstName">First Name</label>
+                    <input type="text" class="form-control" id="txtFirstName">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtLastName">Last address</label>
+                    <input type="text" class="form-control" id="txtLastName">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="divContactInfo" class="divSection">
+        <span><h3>Contact Information</h3></span>
+        <div class="row">
+
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtBusinessPhone">Business Phone</label>
+                    <input type="text" class="form-control" id="txtBusinessPhone">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtFax">Fax</label>
+                    <input type="text" class="form-control" id="txtFax">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtHomePhone">Home Phone</label>
+                    <input type="text" class="form-control" id="txtHomePhone">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtMobilePhone">Mobile Phone</label>
+                    <input type="text" class="form-control" id="txtMobilePhone">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="divAddressInfo" class="divSection">
+        <span><h3>Address</h3></span>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtStreetAddress">Address 1</label>
+                    <input type="text" class="form-control" id="txtAddress1">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtAddress2">Address 2</label>
+                    <input type="text" class="form-control" placeholder="Appartment, Suite, Unit, Floor (Optional)" id="txtAddress2">
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtCity">City</label>
+                    <input type="text" class="form-control" id="txtCity">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="ddlState">State</label>
+                    @Html.DropDownList("ddlState", new SelectList(ViewBag.StateList, "Value", "Text"), new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtZip">Zip</label>
+                    <input type="text" class="form-control" id="txtZip">
+                </div>
+
+            </div>
+            <div class="col-xs-6">
+
+                <div class="form-group">
+                    <label for="txtWebsite">Web</label>
+                    <input type="text" class="form-control" id="txtWebsite">
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div id="divNoteInfo" class="divSection">
+        <span><h3></h3></span>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="txtStreetAddress">Note</label>
+                    <textarea class="form-control" id="txtNote"></textarea>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+            <label for="txtNote" class="control-label col-md-2">  </label>
+        </div>
+
+    <div class="col-md-10">
+        <input type="button" class="btn btn-primary" id="btnCreateSupplier" value="Create" />
+
+    </div>
+    </div>
+    </div>
+
+</form>
+
+
+
+@*============code for simple form==============*@
+<!-- STEP 1  Create Create form to save supplier information-->
+
+@*<form id="frmSuppliers" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="txtCompanyName" class="control-label col-md-2">Company Name </label>
+                <div class="col-md-10">
+                      <input type="text" data-required="true" class="form-control" autocomplete="off" id="txtCompanyName" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="txtFirstName" class="control-label col-md-2">First Name </label>
+                <div class="col-md-10">
+                    <input type="text" data-required="true" class="form-control" autocomplete="off" id="txtFirstName" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtLastName" class="control-label col-md-2">Last Name </label>
+                <div class="col-md-10">
+                    <input type="text" data-required="true" class="form-control" autocomplete="off" id="txtLastName" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtEmail" class="control-label col-md-2"> Email </label>
+                <div class="col-md-10">
+                    <input type="text" data-required="true" class="form-control" autocomplete="off" id="txtEmail" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtBusinessPhone" class="control-label col-md-2"> Business Phone </label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" autocomplete="off" id="txtBusinessPhone" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="txtHomePhone" class="control-label col-md-2"> Home Phone </label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" autocomplete="off" id="txtHomePhone" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtMobilePhone" class="control-label col-md-2"> Mobile Phone </label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" autocomplete="off" id="txtMobilePhone" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtFaxNumber" class="control-label col-md-2"> Fax Phone </label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" autocomplete="off" id="txtFaxNumber" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="txtAddress" class="control-label col-md-2"> Address </label>
+                <div class="col-md-10">
+                    <input type="text" data-required="true"  class="form-control" id="txtAddress" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtCity" class="control-label col-md-2"> City </label>
+                <div class="col-md-10">
+                    <input type="text" data-required="true" autocomplete="off" class="form-control" id="txtCity" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ddlState" class="control-label col-md-2"> State </label>
+                <div class="col-md-10">
+                    @Html.DropDownList("ddlState", new SelectList(ViewBag.StateList, "Value", "Text"), new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtZipCode" class="control-label col-md-2"> ZipCode </label>
+                <div class="col-md-10">
+                    <input type="text" data-required="true" autocomplete="off" class="form-control" id="txtZipCode" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtWebsite" class="control-label col-md-2"> Website </label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" autocomplete="off" id="txtWebsite" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtNote" class="control-label col-md-2"> Note </label>
+                <div class="col-md-10">
+                    <textarea  id="txtNote" cols="50" autocomplete="off" rows="4"></textarea>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtNote" class="control-label col-md-2">  </label>
+                <div class="col-md-10">
+                    <input type="button" class="btn btn-primary" id="btnCreateSupplier" value="Create" />
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>*@
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            $("input[data-required]").blur(function () {
+                var v = $(this).val();
+                if (v === "") {
+                    $(this).addClass('invalid');
+                } else {
+                    $(this).removeClass('invalid');
+                }
+            });
+
+        });
+
+        function ValidateEmail(email) {
+            // Validate email format
+            var expr = /^[\w\-\.\+]+\@@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+            return expr.test(email);
+        };
+
+        function ValidateUrl(url) {
+            var res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@@:%_\+.~#?&//=]*)/g);
+            if (res == null)
+                return false;
+            else
+                return true;
+        }
+
+
+        function validateForm() {
+
+            if ($('#txtCompanyName').val() === "") {
+                toastr.error('Company name is required.', 'Validation Error')
+                return false;
+            }
+
+            if ($('#txtFirstName').val() === "") {
+                toastr.error('First name is required.', 'Validation Error')
+                return false;
+            }
+
+            if ($('#txtLastName').val() === "") {
+                toastr.error('Last name is required.', 'Validation Error')
+                return false;
+            }
+
+
+
+            if ($("#txtEmail").val() === "") {
+                toastr.error(' Email Address is required!', 'Validation Error')
+                return false;
+            }
+
+            if (!ValidateEmail($("#txtEmail").val())) {
+                toastr.error(' Email address is not valid!', 'Validation Error')
+                return false;
+
+            }
+
+
+
+            if ($('#txtAddress').val() === "") {
+                toastr.error('Address is required.', 'Validation Error')
+                return false;
+            }
+
+
+            if ($('#txtCity').val() === "") {
+                toastr.error('City is required.', 'Validation Error')
+                return false;
+            }
+
+
+            if ($('#ddlState').val() === "0") {
+                toastr.error('State is required.', 'Validation Error')
+                return false;
+            }
+
+
+
+            if ($('#txtZipCode').val() === "") {
+                toastr.error('Zipcode is required.', 'Validation Error')
+                return false;
+            }
+            if ($("#txtWebsite").val() != "") {
+                if (!ValidateUrl($("#txtWebsite").val())) {
+                    toastr.error(' wesite url is not valid!', 'Validation Error')
+                    return false;
+                }
+            }
+            return true;
+        };
+
+
+
+
+
+        $('#btnCreateSupplier').click(function () {
+
+            if (validateForm()) {
+                ////STEP 2:  Created js Object to get suppplier form data using jQuery selectors
+                var supplierObj = {
+                    Company: $('#txtCompanyName').val(),
+                    FirstName: $('#txtFirstName').val(),
+                    LastName: $('#txtLastName').val(),
+                    Email: $('#txtEmail').val(),
+                    BusinessPhone: $('#txtBusinessPhone').val(),
+                    HomePhone: $('#txtHomePhone').val(),
+                    MobilePhone: $('#txtMobilePhone').val(),
+                    FaxNumber: $('#txtFaxNumber').val(),
+                    Address: $('#txtAddress').val(),
+                    City: $('#txtCity').val(),
+                    State: $('#ddlState').val(),
+                    ZipCode: $('#txtZipCode').val(),
+                    Website: $('#txtWebsite').val(),
+                    Note: $('#txtNote').val(),
+                };
+                //// if controller action has  [ValidateAntiForgeryToken] attribute  then use below line of code
+                ///=====  var data = { 'supplier': supplierObj, "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() };
+                /// If controll action does not have [ValidateAntiForgeryToken] attribute then use below line of code
+                ///======  var data = { 'supplier': supplierObj};
+
+                //var data = { 'supplier': supplierObj, "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() };
+                var data = { 'supplier': supplierObj };
+                //====STEP 3: Calling Server side (Suppliers/Create) using Jquery AJAX function
+
+                // var data1 = { 'acctNo': 2, 'name': 'harish' };
+
+
+                $.ajax({
+                    type: 'post',
+                    url: "@Url.Action("Create","Suppliers")",
+                    data: data,
+                    success: function (result) {
+                        if (result.Success) {
+                            var url = "/Suppliers/Index";
+                            window.location.href = url;
+                        }
+                    },
+                    error: function (error) {
+                        var err = error;
+                    }
+                });
+
+
+
+
+
+
+
+
+            }
+        });
+    </script>
+
+}

@@ -1,0 +1,591 @@
+﻿@model StoreWeb.PurchaseOrder
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div><h2 class="ra-well-title-space"></h2></div>
+<section class="well">
+    <h2 class="ra-well-title">Purchase Oreder # New</h2>
+    @*<h2 class="ra-well-title">Profile Setup</h2>*@
+
+    <div class="form-horizontal form-widgets col-sm-6">
+        <div class="form-group">         
+            <button id="btnSaveAndClose" class="btn btn-primary">Save & Close</button>           
+        </div>
+    </div>
+
+    <div class="form-horizontal form-widgets col-sm-6 ">
+        <div class="form-group pull-right">            
+            <button id="btnSubmitOrder" class="btn btn-primary">Submit Order</button>
+            <button id="btnCompleteOrder" class="btn btn-primary">Complete Order</button>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</section>
+
+    <section class="well">
+    @*<h2 class="ra-well-title">Profile Setup</h2>*@
+
+    <div class="form-horizontal form-widgets col-sm-6">
+        <div class="form-group">
+            <label class="control-label col-sm-4">Supplier</label>
+            <div class="col-sm-8 col-md-6">
+                @Html.DropDownList("ddlSupplier", new SelectList(ViewBag.SupplierList, "Value", "Text"), new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4">Created By</label>
+            <div class="col-sm-8 col-md-6">
+                @Html.DropDownList("ddlCreatedBy", new SelectList(ViewBag.EmployeeList, "Value", "Text"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4">Submitted By</label>
+            <div class="col-sm-8 col-md-6">
+                @Html.DropDownList("ddlSubmittedBy", new SelectList(ViewBag.EmployeeList, "Value", "Text"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4">Closed By</label>
+            <div class="col-sm-8 col-md-6">
+                @Html.DropDownList("ddlClosedBy", new SelectList(ViewBag.EmployeeList, "Value", "Text"), new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal form-widgets col-sm-6">
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="txtCreatedDate">Created Date</label>
+            <div class="col-sm-8 col-md-6">
+
+                <div class='input-group date datepickerDiv'>
+                    <input type='text' id="txtCreatedDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4 " for="txtExpectedDate">Expected Date</label>
+            <div class="col-sm-8 col-md-6">
+                @*<input id="txtExpectedDate" class="form-control">*@
+
+
+                <div class='input-group date datepickerDiv'>
+                    <input type='text' id="txtExpectedDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="txtSubmittedDate">Submitted Date</label>
+            <div class="col-sm-8 col-md-6">
+
+
+
+                <div class='input-group date datepickerDiv'>
+                    <input type='text' id="txtSubmittedDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="txtClosedDate">Closed Date</label>
+            <div class="col-sm-8 col-md-6">
+
+
+                <div class='input-group date datepickerDiv'>
+                    <input type='text' id="txtClosedDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+    <div><h2 class="ra-well-title-space"></h2></div>
+    <div class="form-horizontal form-widgets col-sm-12">
+        <div class="form-group">
+
+            <div class="col-sm-12">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#productTab">Purchase Details</a></li>
+                    <li><a href="#paymentInfoTab">Payment Information</a></li>
+                    <li><a href="#inventoryReceivingTab">Inventory Receiving</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="productTab" class="tab-pane fade in active">
+                        <div class="h-space">
+                            <!-- Button trigger modal -->
+                            @*<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" type="button">Add New Item</button>*@
+
+
+                            <button type="button" aria-label="Left Align" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"> Add Items</span>
+                            </button>
+
+                        </div>
+                        <table class="table table-striped" id="tblProductList">
+                            <tr id="trHeading">
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Cost</th>
+                                <th>Total Price</th>
+                                <th>
+                                    @*<button type="button" class="btn btn-default btn-xs">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>*@
+                                </th>
+                            </tr>
+
+
+                            <tr id="trTotalOrder">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Total</th>
+                                <th id="tdTotalOrder">$<span id="spnTotalOrder"></span></th>
+                                <th></th>
+                            </tr>
+
+                        </table>
+
+
+                        <!-- Modal Start-->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <!-- Model Header-->
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Product Details</h4>
+                                    </div>
+                                    <!-- Model Header End-->
+
+
+                                    <!-- Model Body-->
+                                    <div class="modal-body">
+
+
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="ddlProductList">Product</label>
+                                                <div class="col-sm-8 col-md-6">
+                                                    <select id="ddlProductList" class="form-control"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="txtQuantity">Quantity</label>
+                                                <div class="col-sm-8 col-md-6">
+                                                    <input id="txtQuantity" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="txtUnitCost">Unit Cost</label>
+                                                <div class="col-sm-8 col-md-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">$</div>
+                                                        @*<input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">*@
+                                                        <input id="txtUnitCost" disabled class="form-control">
+                                                        @*<div class="input-group-addon">.00</div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="txtTotalPrice">Total Price</label>
+                                                <div class="col-sm-8 col-md-6">
+                                                    <input id="txtTotalPrice" disabled class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" id="btnModalAdd">Add</button>
+                                            <button type="button" class="btn btn-primary" id="btnModalCancel" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                    <!-- Model Body End-->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal End-->
+
+
+
+                    </div>
+
+                    <div id="paymentInfoTab" class="tab-pane fade">
+                        Payment Information
+
+                    </div>
+
+                    <div id="inventoryReceivingTab" class="tab-pane fade">
+                        Inventory Receiving
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+</section>
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var orderDetails = [];
+        $(document)
+            .ready(function() {
+
+
+                $(".nav-tabs a")
+                    .click(function() {
+                        $(this).tab('show');
+                    });
+
+
+                $('.datepickerDiv')
+                    .datetimepicker({
+                       format: 'MM/DD/YYYY'
+                    });
+
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+
+                $("input[data-required]")
+                    .blur(function() {
+                        var v = $(this).val();
+                        if (v === "") {
+                            $(this).addClass('invalid');
+                        } else {
+                            $(this).removeClass('invalid');
+                        }
+                    });
+
+
+                $(document)
+                    .on("click",
+                        '#btnDeleteProductFromTable',
+                        function() {
+                            var rowid = $(this).attr("data-rowid");
+
+                            // var currentRow = $("#tblProductList tbody tr").length;
+                            $("#tblProductList ").find("tr[data-rowid='" + rowid + "']").remove();
+        
+                            orderDetails=  orderDetails.filter(function(el) {return el.rowid !==parseInt(rowid);});
+        
+                            var totalPurchaseOrderAmount = 0;
+                            $("#tblProductList tr[data-rowid]")
+                                .each(function() {
+                                    $('#spnTotalOrder').text('$ 0.00');
+                                    var itemAmount = parseInt($(this).find("td[data-total]").text());
+                                    totalPurchaseOrderAmount += itemAmount;
+                                    $('#spnTotalOrder').text(totalPurchaseOrderAmount);
+                                });
+
+
+                        });
+
+            });
+
+
+        $("#ddlSupplier")
+            .change(function() {
+                var suppliedId = $("#ddlSupplier").val();
+                orderDetails = [];
+                $('#ddlProductList').empty();
+                $('#txtUnitCost').val();
+                $('#ddlProductList')
+                    .append($('<option>',
+                    {
+                        value: '0',
+                        text: '---'
+                    }));
+
+
+                $("#tblProductList tr[data-rowid]")
+                    .each(function() {
+                        $(this).remove();
+                    });
+                $('#spnTotalOrder').text("0.00");
+
+
+                if (suppliedId === "0") {
+                    toastr.error("Please select supplier", 'Validation Error');
+                    return false;
+                }
+                var data = { 'suppliedId': suppliedId };
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    // contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action("GetProductListBySupplier", "PurchaseOrders")",
+                    data: data,
+                    success: function(result) {
+                        if (result.length > 0) {
+                            $.each(result,
+                                function(i, item) {
+                                    $('#ddlProductList')
+                                        .append($('<option>',
+                                        {
+                                            value: item.Id,
+                                            text: item.ProductName
+
+                                        }));
+                                });
+                        }
+
+                    },
+                    error: function(error) {
+                        toastr.error(error.statusText, 'Error');
+                        return false;
+                    }
+                });
+
+            });
+
+
+        $("#ddlProductList")
+            .change(function() {
+                var productId = $("#ddlProductList").val();
+                $('#txtQuantity').val('0');
+                $('#txtTotalPrice').val('0');
+                $('#txtUnitCost').val('0');
+
+                if (productId !== "0") {
+                    var data = { 'productId': productId };
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        // contentType: "application/json; charset=utf-8",
+                        url: "@Url.Action("GetProductPrice", "PurchaseOrders")",
+                        data: data,
+                        success: function(result) {
+                            if (result !== null) {
+                                $('#txtUnitCost').val(result.StandardCost);
+                            } else {
+                                $('#txtUnitCost').val('0');
+                            }
+                        },
+                        error: function(error) {
+                            toastr.error(error.statusText, 'Error');
+                            return false;
+                        }
+                    });
+                }
+
+            });
+
+
+        $('#txtQuantity')
+            .change(function() {
+                if ($('#txtQuantity').val() > 0) {
+                    var totalPrice = ($('#txtQuantity').val() * $('#txtUnitCost').val());
+                    $('#txtTotalPrice').val(totalPrice);
+                }
+
+            });
+
+        $('#txtUnitCost')
+            .change(function() {
+                if ($('#txtQuantity').val() > 0) {
+                    var totalPrice = ($('#txtQuantity').val() * $('#txtUnitCost').val());
+                    $('#txtTotalPrice').val(totalPrice);
+                }
+
+            });
+
+
+        $('#btnModalAdd')
+            .click(function() {
+                var amountOfRows = $("#tblProductList tbody tr").length;
+                var productId = parseInt($("#ddlProductList").val());
+                var productName = $("#ddlProductList :selected").text();
+                var qty = parseInt($('#txtQuantity').val());
+                var unitCost = $('#txtUnitCost').val();
+                var total = $('#txtTotalPrice').val();
+                if (productId !== 0 && qty !== 0) {
+
+                    var newRow = $('<tr data-rowid="' +(amountOfRows +1) +'"><td>' +
+                        productId +
+                        '</td><td>' +
+                        productName +
+                        '</td><td>' +
+                        qty +
+                        '</td><td>' +
+                        unitCost +
+                        '</td><td data-total="' +
+                        total +
+                        '">' +
+                        total +
+                        '</td><td><button type="button" id="btnDeleteProductFromTable" data-rowid="' + (amountOfRows +1) +
+                        '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button></td></tr>');
+                    $(newRow).insertAfter($("#tblProductList tr#trHeading"));
+        
+                    orderDetails.push({
+                        rowid: (amountOfRows + 1),
+                        ProductId: productId,
+                        Quantity: qty,
+                        UnitCost: unitCost,
+                        ExtendedPrice: total,
+                        PostedToInventory: false
+
+                    });
+
+
+                    parseInt($("#ddlProductList").val('0'));
+                    $('#txtQuantity').val('0');
+                    $('#txtUnitCost').val('0');
+                    $('#txtTotalPrice').val('0');
+
+                }
+                var totalPurchaseOrderAmount = 0;
+                $("#tblProductList tr[data-rowid]")
+                    .each(function() {
+                        $('#spnTotalOrder').text('$ 0.00');
+                        var itemAmount = parseInt($(this).find("td[data-total]").text());
+                        totalPurchaseOrderAmount += itemAmount;
+                        $('#spnTotalOrder').text(totalPurchaseOrderAmount);
+                    });
+
+            });
+
+
+        $('#btnSaveAndClose')
+            .click(function() {
+                if (validateForm()) {
+                    var PurchaseOrderObj = {
+                        SuppplierId: $('#ddlSupplier').val(),
+                        CreatedBy: $("#ddlCreatedBy").val(),
+                        CreatedDate: $("#txtCreatedDate").val(),
+                        OrderTotal: parseFloat($('#spnTotalOrder').text()),
+                        PurchaseOrderDetails: orderDetails
+                    };
+                    var data = { 'pOrder.PurchaseOrder': PurchaseOrderObj };
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        url: "@Url.Action("SaveNewOrder", "PurchaseOrders")",
+                        data: data,
+                        success: function(result) {
+                            if (result.Success) {
+                                var url = "/PurchaseOrders/Index";
+                                window.location.href = url;
+                            } else {
+                                toastr.error(result.Message, 'Error');
+                                return false;
+                            }
+                        },
+                        error: function(error) {
+                            toastr.error(error.statusText, 'Error');
+                            return false;
+                        }
+                    });
+                }
+
+            });
+
+
+        function validateForm() {
+
+            if ($('#ddlSupplier').val() === "0") {
+                toastr.error('Please select supplier!', 'Validation Error');
+                return false;
+            }
+
+            if ($("#ddlCreatedBy").val() === "0") {
+                toastr.error('Please select person name who is creating this order!', 'Validation Error');
+                return false;
+            }
+
+
+            if ($("#txtCreatedDate").val() === "") {
+                toastr.error('Created date is required!', 'Validation Error');
+                return false;
+            }
+            
+            if (orderDetails.length <= 0) {
+                toastr.error('Please add at least one product before saving!', 'Validation Error');
+                return false;
+            }
+            return true;
+        };
+
+
+    </script>
+}
+
